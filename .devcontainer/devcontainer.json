@@ -1,0 +1,11 @@
+{
+  "name": "math-dev",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["eamodio.gitlens"]
+    }
+  }
+}

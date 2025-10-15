@@ -8,7 +8,8 @@
       "extensions": [
         "eamodio.gitlens",
         "rust-lang.rust-analyzer",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+        "bytecodealliance.wit-idl"
       ]
     }
   }

@@ -1,6 +1,50 @@
 package component:math;
 
-/// An example world for the component to target.
-world example {
-    export hello-world: func() -> string;
+interface core {
+
+    hello-world: func(v: vector2d) -> string;
+
+    record vector2d {
+        x: f32,
+        y: f32,
+    }
+
+    record vector3d {
+        x: f32,
+        y: f32,
+        z: f32,
+    }
+
+    record point2d {
+        x: f32,
+        y: f32,
+    }
+
+    record point3d {
+        x: f32,
+        y: f32,
+        z: f32,
+    }
+
+    record quaternion {
+        x: f32,
+        y: f32,
+        z: f32,
+        w: f32,
+    }
+
+    record rotation-vector {
+        x: f32,
+        y: f32,
+        z: f32,
+    }
+
+    record plane {
+        normal: vector3d,
+        d: f32,
+    }
+}
+
+world math {
+    export core;
 }

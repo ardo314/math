@@ -5,7 +5,12 @@
   },
   "customizations": {
     "vscode": {
-      "extensions": ["eamodio.gitlens"]
+      "extensions": [
+        "eamodio.gitlens",
+        "rust-lang.rust-analyzer",
+        "esbenp.prettier-vscode",
+        "bytecodealliance.wit-idl"
+      ]
     }
   }
 }

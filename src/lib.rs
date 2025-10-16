@@ -29,8 +29,12 @@ impl Guest for Component {
         (lhs.0 / rhs, lhs.1 / rhs)
     }
     
-    fn vector2d_length(v: bindings::Vector2d) -> f32 {
+    fn vector2d_sqr_length(v: bindings::Vector2d) -> f32 {
         Self::vector2d_dot(v, v).sqrt()
+    }
+    
+    fn vector2d_length(v: bindings::Vector2d) -> f32 {
+        Self::vector2d_sqr_length(v).sqrt()
     }
     
     fn vector2d_normalize(v: bindings::Vector2d) -> bindings::Vector2d {
@@ -70,8 +74,12 @@ impl Guest for Component {
         (-v.0, -v.1, -v.2)
     }
     
-    fn vector3d_length(v: bindings::Vector3d) -> f32 {
+    fn vector3d_sqr_length(v: bindings::Vector3d) -> f32 {
         Self::vector3d_dot(v, v).sqrt()
+    }
+    
+    fn vector3d_length(v: bindings::Vector3d) -> f32 {
+        Self::vector3d_sqr_length(v).sqrt()
     }
     
     fn vector3d_normalize(v: bindings::Vector3d) -> bindings::Vector3d {

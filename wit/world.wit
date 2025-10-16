@@ -1,50 +1,45 @@
-package component:math;
+package ardo:math;
 
-interface core {
+world math {
+    export vector2d-add: func(lhs: vector2d, rhs: vector2d) -> vector2d;
+    export vector2d-sub: func(lhs: vector2d, rhs: vector2d) -> vector2d;
+    export vector2d-dot: func(lhs: vector2d, rhs: vector2d) -> f32;
+    export vector2d-mul: func(lhs: vector2d, rhs: f32) -> vector2d;
+    export vector2d-div: func(lhs: vector2d, rhs: f32) -> vector2d;
+    export vector2d-neg: func(v: vector2d) -> vector2d;
+    export vector2d-length: func(v: vector2d) -> f32;
+    export vector2d-normalize: func(v: vector2d) -> vector2d;
 
-    hello-world: func(v: vector2d) -> string;
+    export vector3d-add: func(lhs: vector3d, rhs: vector3d) -> vector3d;
+    export vector3d-sub: func(lhs: vector3d, rhs: vector3d) -> vector3d;
+    export vector3d-dot: func(lhs: vector3d, rhs: vector3d) -> f32;
+    export vector3d-mul: func(lhs: vector3d, rhs: f32) -> vector3d;
+    export vector3d-div: func(lhs: vector3d, rhs: f32) -> vector3d;
+    export vector3d-neg: func(v: vector3d) -> vector3d;
+    export vector3d-length: func(v: vector3d) -> f32;
+    export vector3d-normalize: func(v: vector3d) -> vector3d;
 
-    record vector2d {
-        x: f32,
-        y: f32,
-    }
+    export point2d-add-vector2d: func(p: point2d, v: vector2d) -> point2d;
+    export point2d-sub-vector2d: func(p: point2d, v: vector2d) -> point2d;
 
-    record vector3d {
-        x: f32,
-        y: f32,
-        z: f32,
-    }
+    export point3d-add-vector3d: func(p: point3d, v: vector3d) -> point3d;
+    export point3d-sub-vector3d: func(p: point3d, v: vector3d) -> point3d;
 
-    record point2d {
-        x: f32,
-        y: f32,
-    }
+    type vector2d = tuple<f32, f32>; // x, y
+    type vector3d = tuple<f32, f32, f32>; // x, y, z
+    type vector4d = tuple<f32, f32, f32, f32>; // x, y, z, w
 
-    record point3d {
-        x: f32,
-        y: f32,
-        z: f32,
-    }
+    type rotation-vector = tuple<f32, f32, f32>; // axis with angle magnitude
+    type quaternion = tuple<f32, f32, f32, f32>; // x, y, z, w
 
-    record quaternion {
-        x: f32,
-        y: f32,
-        z: f32,
-        w: f32,
-    }
+    type point2d = tuple<f32, f32>; // x, y
+    type point3d = tuple<f32, f32, f32>; // x, y, z
 
-    record rotation-vector {
-        x: f32,
-        y: f32,
-        z: f32,
-    }
+    type pose2d = tuple<f32, f32, f32>; // x, y, theta
+    type pose3d = tuple<f32, f32, f32, f32, f32, f32>; // x, y, z, rx, ry, rz (axis with angle magnitude)
 
     record plane {
         normal: vector3d,
         d: f32,
     }
-}
-
-world math {
-    export core;
 }

@@ -1,6 +1,24 @@
 package ardo:math;
 
 world math {
+    type vector2d = tuple<f32, f32>; // x, y
+    type vector3d = tuple<f32, f32, f32>; // x, y, z
+    type vector4d = tuple<f32, f32, f32, f32>; // x, y, z, w
+
+    type rotation-vector = tuple<f32, f32, f32>; // axis with angle magnitude
+    type quaternion = tuple<f32, f32, f32, f32>; // x, y, z, w
+
+    type point2d = tuple<f32, f32>; // x, y
+    type point3d = tuple<f32, f32, f32>; // x, y, z
+
+    type pose2d = tuple<f32, f32, f32>; // x, y, theta
+    type pose3d = tuple<f32, f32, f32, f32, f32, f32>; // x, y, z, rx, ry, rz (axis with angle magnitude)
+
+    record plane {
+        normal: vector3d,
+        d: f32,
+    }
+
     export vector2d-add: func(lhs: vector2d, rhs: vector2d) -> vector2d;
     export vector2d-sub: func(lhs: vector2d, rhs: vector2d) -> vector2d;
     export vector2d-dot: func(lhs: vector2d, rhs: vector2d) -> f32;
@@ -26,22 +44,4 @@ world math {
 
     export point3d-add-vector3d: func(p: point3d, v: vector3d) -> point3d;
     export point3d-sub-vector3d: func(p: point3d, v: vector3d) -> point3d;
-
-    type vector2d = tuple<f32, f32>; // x, y
-    type vector3d = tuple<f32, f32, f32>; // x, y, z
-    type vector4d = tuple<f32, f32, f32, f32>; // x, y, z, w
-
-    type rotation-vector = tuple<f32, f32, f32>; // axis with angle magnitude
-    type quaternion = tuple<f32, f32, f32, f32>; // x, y, z, w
-
-    type point2d = tuple<f32, f32>; // x, y
-    type point3d = tuple<f32, f32, f32>; // x, y, z
-
-    type pose2d = tuple<f32, f32, f32>; // x, y, theta
-    type pose3d = tuple<f32, f32, f32, f32, f32, f32>; // x, y, z, rx, ry, rz (axis with angle magnitude)
-
-    record plane {
-        normal: vector3d,
-        d: f32,
-    }
 }

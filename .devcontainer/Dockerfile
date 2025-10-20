@@ -6,3 +6,4 @@ RUN apt-get update && apt-get install -y \
 
 RUN cargo install --locked cargo-component
 RUN cargo install --locked wasm-tools
+RUN cargo install --locked wkg

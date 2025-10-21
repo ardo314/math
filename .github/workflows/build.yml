@@ -27,3 +27,22 @@ jobs:
 
       - name: Build component
         run: cargo component build --release
+
+      - name: Install wkg
+        run: cargo install --locked wkg
+
+      - name: Login to DockerHub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | wkg login docker.io -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Publish WIT package
+        run: |
+          # Generate a tag name based on git ref
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            TAG="latest"
+          elif [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            TAG="${{ github.ref_name }}"
+          else
+            TAG="${{ github.sha }}"
+          fi
+
+          wkg publish --registry docker.io wit/ --tag "ardo314/math:$TAG"

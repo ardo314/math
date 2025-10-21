@@ -1,16 +1,16 @@
 name: Build Component
-
 on:
   push:
-    branches: [main, develop]
+    branches: ["main"]
   pull_request:
-    branches: [main, develop]
+    branches: ["main"]
+
+env:
+  CARGO_TERM_COLOR: always
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: rust:slim
 
     steps:
       - name: Checkout code

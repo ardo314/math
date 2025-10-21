@@ -19,6 +19,7 @@ world math {
         d: f32,
     }
 
+
     export vector2d-add: func(lhs: vector2d, rhs: vector2d) -> vector2d;
     export vector2d-sub: func(lhs: vector2d, rhs: vector2d) -> vector2d;
     export vector2d-dot: func(lhs: vector2d, rhs: vector2d) -> f32;

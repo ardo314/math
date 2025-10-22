@@ -1,4 +1,4 @@
-package ardo:math;
+package ardo314:math;
 
 world math {
     type vector2d = tuple<f32, f32>; // x, y

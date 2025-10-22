@@ -32,7 +32,7 @@ jobs:
         run: cargo install --locked wkg
 
       - name: Login to DockerHub
-        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | wkg login docker.io -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | wkg login docker.io -u "${{ secrets.DOCKERHUB_USER }}" --password-stdin
 
       - name: Publish WIT package
         run: |

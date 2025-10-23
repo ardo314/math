@@ -1,0 +1,26 @@
+name: Build Component
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install cargo-component
+        run: cargo install --locked cargo-component
+
+      - name: Install wasm-tools
+        run: cargo install --locked wasm-tools
+
+      - name: Install wkg
+        run: cargo install --locked wkg

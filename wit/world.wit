@@ -1,32 +1,6 @@
-package ardo:math;
+package ardo314:math@0.0.1;
 
-world math {
-    export vector2d-add: func(lhs: vector2d, rhs: vector2d) -> vector2d;
-    export vector2d-sub: func(lhs: vector2d, rhs: vector2d) -> vector2d;
-    export vector2d-dot: func(lhs: vector2d, rhs: vector2d) -> f32;
-    export vector2d-mul: func(lhs: vector2d, rhs: f32) -> vector2d;
-    export vector2d-div: func(lhs: vector2d, rhs: f32) -> vector2d;
-    export vector2d-neg: func(v: vector2d) -> vector2d;
-    export vector2d-sqr-length: func(v: vector2d) -> f32;
-    export vector2d-length: func(v: vector2d) -> f32;
-    export vector2d-normalize: func(v: vector2d) -> vector2d;
-
-    export vector3d-add: func(lhs: vector3d, rhs: vector3d) -> vector3d;
-    export vector3d-sub: func(lhs: vector3d, rhs: vector3d) -> vector3d;
-    export vector3d-dot: func(lhs: vector3d, rhs: vector3d) -> f32;
-    export vector3d-mul: func(lhs: vector3d, rhs: f32) -> vector3d;
-    export vector3d-div: func(lhs: vector3d, rhs: f32) -> vector3d;
-    export vector3d-neg: func(v: vector3d) -> vector3d;
-    export vector3d-sqr-length: func(v: vector3d) -> f32;
-    export vector3d-length: func(v: vector3d) -> f32;
-    export vector3d-normalize: func(v: vector3d) -> vector3d;
-
-    export point2d-add-vector2d: func(p: point2d, v: vector2d) -> point2d;
-    export point2d-sub-vector2d: func(p: point2d, v: vector2d) -> point2d;
-
-    export point3d-add-vector3d: func(p: point3d, v: vector3d) -> point3d;
-    export point3d-sub-vector3d: func(p: point3d, v: vector3d) -> point3d;
-
+interface types {
     type vector2d = tuple<f32, f32>; // x, y
     type vector3d = tuple<f32, f32, f32>; // x, y, z
     type vector4d = tuple<f32, f32, f32, f32>; // x, y, z, w
@@ -44,4 +18,54 @@ world math {
         normal: vector3d,
         d: f32,
     }
+}
+
+interface vector2d {
+    use types.{vector2d};
+
+    add: func(lhs: vector2d, rhs: vector2d) -> vector2d;
+    sub: func(lhs: vector2d, rhs: vector2d) -> vector2d;
+    dot: func(lhs: vector2d, rhs: vector2d) -> f32;
+    mul: func(lhs: vector2d, rhs: f32) -> vector2d;
+    div: func(lhs: vector2d, rhs: f32) -> vector2d;
+    neg: func(v: vector2d) -> vector2d;
+    sqr-length: func(v: vector2d) -> f32;
+    length: func(v: vector2d) -> f32;
+    normalize: func(v: vector2d) -> vector2d;
+}
+
+interface vector3d {
+    use types.{vector3d};
+
+    add: func(lhs: vector3d, rhs: vector3d) -> vector3d;
+    sub: func(lhs: vector3d, rhs: vector3d) -> vector3d;
+    dot: func(lhs: vector3d, rhs: vector3d) -> f32;
+    mul: func(lhs: vector3d, rhs: f32) -> vector3d;
+    div: func(lhs: vector3d, rhs: f32) -> vector3d;
+    neg: func(v: vector3d) -> vector3d;
+    sqr-length: func(v: vector3d) -> f32;
+    length: func(v: vector3d) -> f32;
+    normalize: func(v: vector3d) -> vector3d;
+}
+
+interface point2d {
+    use types.{point2d, vector2d};
+
+    add-vector2d: func(p: point2d, v: vector2d) -> point2d;
+    sub-vector2d: func(p: point2d, v: vector2d) -> point2d;
+}
+
+interface point3d {
+    use types.{point3d, vector3d};
+
+    add-vector3d: func(p: point3d, v: vector3d) -> point3d;
+    sub-vector3d: func(p: point3d, v: vector3d) -> point3d;
+}
+
+world math {
+    export types;
+    export vector2d;
+    export vector3d;
+    export point2d;
+    export point3d;
 }

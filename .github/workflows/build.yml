@@ -24,3 +24,6 @@ jobs:
 
       - name: Install wkg
         run: cargo install --locked wkg
+
+      - name: Build component
+        run: wkg wit build --output math.wasm

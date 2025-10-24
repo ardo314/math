@@ -50,6 +50,15 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
+      - name: Install cargo-component
+        run: cargo install --locked cargo-component
+
+      - name: Install wasm-tools
+        run: cargo install --locked wasm-tools
+
+      - name: Install wkg
+        run: cargo install --locked wkg
+
       - name: Download WASM artifact
         uses: actions/download-artifact@v4
         with:

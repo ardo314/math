@@ -1,4 +1,4 @@
-package ardo314:math@0.1.0;
+package ardo314:math@0.0.1;
 
 interface types {
     type vector2d = tuple<f32, f32>; // x, y

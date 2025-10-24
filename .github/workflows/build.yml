@@ -38,7 +38,7 @@ jobs:
       - name: Upload WASM artifact
         uses: actions/upload-artifact@v4
         with:
-          name: math-wasm-${{ steps.extract-version.outputs.version }}
+          name: math-wasm
           path: math.wasm
           retention-days: 30
 
@@ -51,17 +51,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Extract version from world.wit
-        id: extract-version
-        run: |
-          VERSION=$(grep -o 'package ardo314:math@[0-9]*\.[0-9]*\.[0-9]*' wit/world.wit | sed 's/package ardo314:math@//')
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Extracted version: $VERSION"
-
       - name: Download WASM artifact
         uses: actions/download-artifact@v4
         with:
-          name: math-wasm-${{ steps.extract-version.outputs.version }}
+          name: math-wasm
 
       - name: Verify artifact
         run: ls -la math.wasm

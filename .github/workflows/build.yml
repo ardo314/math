@@ -25,13 +25,20 @@ jobs:
       - name: Install wkg
         run: cargo install --locked wkg
 
+      - name: Extract version from world.wit
+        id: extract-version
+        run: |
+          VERSION=$(grep -o 'package ardo314:math@[0-9]*\.[0-9]*\.[0-9]*' wit/world.wit | sed 's/package ardo314:math@//')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Extracted version: $VERSION"
+
       - name: Build component
         run: wkg wit build --output math.wasm
 
       - name: Upload WASM artifact
         uses: actions/upload-artifact@v4
         with:
-          name: math-wasm
+          name: math-wasm-${{ steps.extract-version.outputs.version }}
           path: math.wasm
           retention-days: 30
 
@@ -41,13 +48,23 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Extract version from world.wit
+        id: extract-version
+        run: |
+          VERSION=$(grep -o 'package ardo314:math@[0-9]*\.[0-9]*\.[0-9]*' wit/world.wit | sed 's/package ardo314:math@//')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Extracted version: $VERSION"
+
       - name: Download WASM artifact
         uses: actions/download-artifact@v4
         with:
-          name: math-wasm
+          name: math-wasm-${{ steps.extract-version.outputs.version }}
 
       - name: Verify artifact
         run: ls -la math.wasm
 
       - name: Publish component
-        run: wkg oci push ardo314/math:x.x.x math.wasm -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_TOKEN }}
+        run: wkg oci push ardo314/math:${{ steps.extract-version.outputs.version }} math.wasm -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_TOKEN }}

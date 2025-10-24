@@ -11,6 +11,8 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.extract-version.outputs.version }}
 
     steps:
       - name: Checkout code
@@ -48,9 +50,6 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Download WASM artifact
         uses: actions/download-artifact@v4
         with:
@@ -60,4 +59,4 @@ jobs:
         run: ls -la math.wasm
 
       - name: Publish component
-        run: wkg oci push ardo314/math:${{ steps.extract-version.outputs.version }} math.wasm -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_TOKEN }}
+        run: wkg oci push ardo314/math:${{ needs.build.outputs.version }} math.wasm -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_TOKEN }}

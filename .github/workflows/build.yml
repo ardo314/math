@@ -1,4 +1,4 @@
-name: Build Component
+name: Default
 on:
   push:
     branches: ["main"]
@@ -9,7 +9,7 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build-docker:
+  build-ci-image:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -35,10 +35,10 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  prepare:
+  read-version:
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.extract-version.outputs.version }}
+      version: ${{ steps.read-version.outputs.version }}
 
     steps:
       - name: Checkout code
@@ -81,7 +81,7 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    needs: [prepare, build, build-docker]
+    needs: [read-version, build, build-docker]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
@@ -94,4 +94,4 @@ jobs:
         run: ls -la math.wasm
 
       - name: Publish component
-        run: wkg oci push ardo314/math:${{ needs.prepare.outputs.version }} math.wasm -u ${{ secrets.DOCKERHUB_USER }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+        run: wkg oci push ardo314/math:${{ needs.read-version.outputs.version }} math.wasm -u ${{ secrets.DOCKERHUB_USER }} -p ${{ secrets.DOCKERHUB_TOKEN }}

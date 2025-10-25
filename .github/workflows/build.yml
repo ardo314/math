@@ -9,7 +9,7 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build:
+  prepare:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.extract-version.outputs.version }}
@@ -18,21 +18,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install cargo-component
-        run: cargo install --locked cargo-component
-
-      - name: Install wasm-tools
-        run: cargo install --locked wasm-tools
-
-      - name: Install wkg
-        run: cargo install --locked wkg
-
       - name: Extract version from world.wit
         id: extract-version
         run: |
           VERSION=$(grep -o 'package ardo314:math@[0-9]*\.[0-9]*\.[0-9]*' wit/world.wit | sed 's/package ardo314:math@//')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Extracted version: $VERSION"
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Build component
         run: wkg wit build --output math.wasm
@@ -46,19 +44,10 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
-    needs: build
+    needs: prepare
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
-      - name: Install cargo-component
-        run: cargo install --locked cargo-component
-
-      - name: Install wasm-tools
-        run: cargo install --locked wasm-tools
-
-      - name: Install wkg
-        run: cargo install --locked wkg
-
       - name: Download WASM artifact
         uses: actions/download-artifact@v4
         with:
@@ -68,4 +57,4 @@ jobs:
         run: ls -la math.wasm
 
       - name: Publish component
-        run: wkg oci push ardo314/math:${{ needs.build.outputs.version }} math.wasm -u ${{ secrets.DOCKERHUB_USER }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+        run: wkg oci push ardo314/math:${{ needs.prepare.outputs.version }} math.wasm -u ${{ secrets.DOCKERHUB_USER }} -p ${{ secrets.DOCKERHUB_TOKEN }}

@@ -1,18 +1,32 @@
 package ardo314:math@0.0.1;
 
 interface types {
-    type vector2d = tuple<f32, f32>; // x, y
-    type vector3d = tuple<f32, f32, f32>; // x, y, z
-    type vector4d = tuple<f32, f32, f32, f32>; // x, y, z, w
+    // x, y
+    type vector2d = tuple<f32, f32>;
 
-    type rotation-vector = tuple<f32, f32, f32>; // axis with angle magnitude
-    type quaternion = tuple<f32, f32, f32, f32>; // x, y, z, w
+    // x, y, z
+    type vector3d = tuple<f32, f32, f32>;
 
-    type point2d = tuple<f32, f32>; // x, y
-    type point3d = tuple<f32, f32, f32>; // x, y, z
+    // x, y, z, w
+    type vector4d = tuple<f32, f32, f32, f32>;
 
-    type pose2d = tuple<f32, f32, f32>; // x, y, theta
-    type pose3d = tuple<f32, f32, f32, f32, f32, f32>; // x, y, z, rx, ry, rz (axis with angle magnitude)
+    // axis with angle magnitude
+    type rotation-vector = tuple<f32, f32, f32>;
+
+    // x, y, z, w
+    type quaternion = tuple<f32, f32, f32, f32>;
+
+    // x, y, theta
+    type pose2d = tuple<f32, f32, f32>;
+
+    // x, y, z, rx, ry, rz (axis with angle magnitude)
+    type pose3d = tuple<f32, f32, f32, f32, f32, f32>;
+
+    // x, y
+    type point2d = tuple<f32, f32>;
+
+    // x, y, z
+    type point3d = tuple<f32, f32, f32>;
 
     record plane {
         normal: vector3d,
@@ -48,6 +62,29 @@ interface vector3d {
     normalize: func(v: vector3d) -> vector3d;
 }
 
+interface vector4d {
+    use types.{vector4d};
+
+    add: func(lhs: vector4d, rhs: vector4d) -> vector4d;
+    sub: func(lhs: vector4d, rhs: vector4d) -> vector4d;
+}
+
+interface rotation-vector {
+    use types.{rotation-vector};
+}
+
+interface quaternion {
+    use types.{quaternion};
+}
+
+interface pose2d {
+    use types.{pose2d};
+}
+
+interface pose3d {
+    use types.{pose3d};
+}
+
 interface point2d {
     use types.{point2d, vector2d};
 
@@ -62,10 +99,20 @@ interface point3d {
     sub-vector3d: func(p: point3d, v: vector3d) -> point3d;
 }
 
+interface plane {
+    use types.{plane};
+}
+
 world math {
     export types;
     export vector2d;
     export vector3d;
+    export vector4d;
+    export rotation-vector;
+    export quaternion;
+    export pose2d;
+    export pose3d;
     export point2d;
     export point3d;
+    export plane;
 }

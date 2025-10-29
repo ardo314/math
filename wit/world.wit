@@ -13,6 +13,9 @@ interface types {
     // axis with angle magnitude
     type rotation-vector = tuple<f32, f32, f32>;
 
+    // axis, angle
+    type axis-angle = tuple<vector3d, f32>;
+
     // x, y, z, w
     type quaternion = tuple<f32, f32, f32, f32>;
 
@@ -86,14 +89,33 @@ interface vector4d {
 interface rotation-vector {
     use types.{rotation-vector, vector3d, quaternion};
 
-    axis: func(rv: rotation-vector) -> vector3d;
-    angle: func(rv: rotation-vector) -> f32;
+    identity: func() -> rotation-vector;
+
+    mul-f32: func(rv: rotation-vector, s: f32) -> rotation-vector;
+    div-f32: func(rv: rotation-vector, s: f32) -> rotation-vector;
+
+    to-axis-angle: func(rv: rotation-vector) -> tuple<vector3d, f32>;
     to-quaternion: func(rv: rotation-vector) -> quaternion;
 }
 
-interface quaternion {
-    use types.{quaternion, rotation-vector};
+interface axis-angle {
+    use types.{axis-angle, rotation-vector, quaternion};
 
+    identity: func() -> axis-angle;
+
+    mul-f32: func(aa: axis-angle, s: f32) -> axis-angle;
+    div-f32: func(aa: axis-angle, s: f32) -> axis-angle;
+
+    to-rotation-vector: func(aa: axis-angle) -> rotation-vector;
+    to-quaternion: func(aa: axis-angle) -> quaternion;
+}
+
+interface quaternion {
+    use types.{quaternion, rotation-vector, vector3d};
+
+    identity: func() -> quaternion;
+
+    to-axis-angle: func(q: quaternion) -> tuple<vector3d, f32>;
     to-rotation-vector: func(q: quaternion) -> rotation-vector;
 }
 

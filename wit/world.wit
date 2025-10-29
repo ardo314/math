@@ -40,8 +40,10 @@ interface vector2d {
     add: func(lhs: vector2d, rhs: vector2d) -> vector2d;
     sub: func(lhs: vector2d, rhs: vector2d) -> vector2d;
     dot: func(lhs: vector2d, rhs: vector2d) -> f32;
-    mul: func(lhs: vector2d, rhs: f32) -> vector2d;
-    div: func(lhs: vector2d, rhs: f32) -> vector2d;
+    add-f32: func(lhs: vector2d, rhs: f32) -> vector2d;
+    sub-f32: func(lhs: vector2d, rhs: f32) -> vector2d;
+    mul-f32: func(lhs: vector2d, rhs: f32) -> vector2d;
+    div-f32: func(lhs: vector2d, rhs: f32) -> vector2d;
     neg: func(v: vector2d) -> vector2d;
     sqr-length: func(v: vector2d) -> f32;
     length: func(v: vector2d) -> f32;

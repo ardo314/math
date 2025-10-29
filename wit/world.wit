@@ -86,14 +86,17 @@ interface vector4d {
 interface rotation-vector {
     use types.{rotation-vector, vector3d, quaternion};
 
+    identity: func() -> rotation-vector;
     axis: func(rv: rotation-vector) -> vector3d;
     angle: func(rv: rotation-vector) -> f32;
+    to-components: func(rv: rotation-vector) -> tuple<vector3d, f32>;
     to-quaternion: func(rv: rotation-vector) -> quaternion;
 }
 
 interface quaternion {
     use types.{quaternion, rotation-vector};
 
+    identity: func() -> quaternion;
     to-rotation-vector: func(q: quaternion) -> rotation-vector;
 }
 

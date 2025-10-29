@@ -157,6 +157,7 @@ world math {
     export vector3d;
     export vector4d;
     export rotation-vector;
+    export axis-angle;
     export quaternion;
     export point2d;
     export point3d;

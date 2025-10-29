@@ -1,4 +1,4 @@
-package ardo314:math@0.0.1;
+package ardo314:math@0.0.2;
 
 interface types {
     // x, y
@@ -54,12 +54,15 @@ interface vector3d {
     add: func(lhs: vector3d, rhs: vector3d) -> vector3d;
     sub: func(lhs: vector3d, rhs: vector3d) -> vector3d;
     dot: func(lhs: vector3d, rhs: vector3d) -> f32;
-    mul: func(lhs: vector3d, rhs: f32) -> vector3d;
-    div: func(lhs: vector3d, rhs: f32) -> vector3d;
+    add-f32: func(lhs: vector3d, rhs: f32) -> vector3d;
+    sub-f32: func(lhs: vector3d, rhs: f32) -> vector3d;
+    mul-f32: func(lhs: vector3d, rhs: f32) -> vector3d;
+    div-f32: func(lhs: vector3d, rhs: f32) -> vector3d;
     neg: func(v: vector3d) -> vector3d;
     sqr-length: func(v: vector3d) -> f32;
     length: func(v: vector3d) -> f32;
     normalize: func(v: vector3d) -> vector3d;
+    cross: func(lhs: vector3d, rhs: vector3d) -> vector3d;
 }
 
 interface vector4d {
@@ -67,22 +70,29 @@ interface vector4d {
 
     add: func(lhs: vector4d, rhs: vector4d) -> vector4d;
     sub: func(lhs: vector4d, rhs: vector4d) -> vector4d;
+    dot: func(lhs: vector4d, rhs: vector4d) -> f32;
+    add-f32: func(lhs: vector4d, rhs: f32) -> vector4d;
+    sub-f32: func(lhs: vector4d, rhs: f32) -> vector4d;
+    mul-f32: func(lhs: vector4d, rhs: f32) -> vector4d;
+    div-f32: func(lhs: vector4d, rhs: f32) -> vector4d;
+    neg: func(v: vector4d) -> vector4d;
+    sqr-length: func(v: vector4d) -> f32;
+    length: func(v: vector4d) -> f32;
+    normalize: func(v: vector4d) -> vector4d;
 }
 
 interface rotation-vector {
-    use types.{rotation-vector};
+    use types.{rotation-vector, vector3d, quaternion};
+
+    axis: func(rv: rotation-vector) -> vector3d;
+    angle: func(rv: rotation-vector) -> f32;
+    to-quaternion: func(rv: rotation-vector) -> quaternion;
 }
 
 interface quaternion {
-    use types.{quaternion};
-}
+    use types.{quaternion, rotation-vector};
 
-interface pose2d {
-    use types.{pose2d};
-}
-
-interface pose3d {
-    use types.{pose3d};
+    to-rotation-vector: func(q: quaternion) -> rotation-vector;
 }
 
 interface point2d {
@@ -99,6 +109,20 @@ interface point3d {
     sub-vector3d: func(p: point3d, v: vector3d) -> point3d;
 }
 
+interface pose2d {
+    use types.{pose2d, point2d};
+
+    position: func(p: pose2d) -> point2d;
+    rotation: func(p: pose2d) -> f32;
+}
+
+interface pose3d {
+    use types.{pose3d, point3d, rotation-vector};
+
+    position: func(p: pose3d) -> point3d;
+    rotation: func(p: pose3d) -> rotation-vector;
+}
+
 interface plane {
     use types.{plane};
 }
@@ -110,9 +134,9 @@ world math {
     export vector4d;
     export rotation-vector;
     export quaternion;
-    export pose2d;
-    export pose3d;
     export point2d;
     export point3d;
+    export pose2d;
+    export pose3d;
     export plane;
 }

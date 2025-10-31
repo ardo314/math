@@ -243,6 +243,8 @@ world math {
     export matrix3x3;
     export matrix4x4;
     export rotation-vector;
+    export rotation-matrix2x2;
+    export rotation-matrix3x3;
     export axis-angle;
     export quaternion;
     export point2d;

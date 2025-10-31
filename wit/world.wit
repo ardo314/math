@@ -1,4 +1,4 @@
-package ardo314:math@0.0.2;
+package ardo314:math@0.0.3;
 
 interface types {
     // x, y
@@ -9,6 +9,44 @@ interface types {
 
     // x, y, z, w
     type vector4d = tuple<f32, f32, f32, f32>;
+
+    record matrix2x2 {
+        m00: f32,
+        m10: f32,
+        m01: f32,
+        m11: f32,
+    }
+
+    record matrix3x3 {
+        m00: f32,
+        m10: f32,
+        m20: f32,
+        m01: f32,
+        m11: f32,
+        m21: f32,
+        m02: f32,
+        m12: f32,
+        m22: f32,
+    }
+
+    record matrix4x4 {
+        m00: f32,
+        m10: f32,
+        m20: f32,
+        m30: f32,
+        m01: f32,
+        m11: f32,
+        m21: f32,
+        m31: f32,
+        m02: f32,
+        m12: f32,
+        m22: f32,
+        m32: f32,
+        m03: f32,
+        m13: f32,
+        m23: f32,
+        m33: f32,
+    }
 
     // axis with angle magnitude
     type rotation-vector = tuple<f32, f32, f32>;
@@ -84,6 +122,30 @@ interface vector4d {
     sqr-length: func(v: vector4d) -> f32;
     length: func(v: vector4d) -> f32;
     normalize: func(v: vector4d) -> vector4d;
+}
+
+interface matrix2x2 {
+    use types.{matrix2x2, vector2d};
+
+    identity: func() -> matrix2x2;
+    mul: func(lhs: matrix2x2, rhs: matrix2x2) -> matrix2x2;
+    mul-vector2d: func(lhs: matrix2x2, rhs: vector2d) -> vector2d;
+}
+
+interface matrix3x3 {
+    use types.{matrix3x3, vector3d};
+
+    identity: func() -> matrix3x3;
+    mul: func(lhs: matrix3x3, rhs: matrix3x3) -> matrix3x3;
+    mul-vector3d: func(lhs: matrix3x3, rhs: vector3d) -> vector3d;
+}
+
+interface matrix4x4 {
+    use types.{matrix4x4, vector4d};
+
+    identity: func() -> matrix4x4;
+    mul: func(lhs: matrix4x4, rhs: matrix4x4) -> matrix4x4;
+    mul-vector4d: func(lhs: matrix4x4, rhs: vector4d) -> vector4d;
 }
 
 interface rotation-vector {

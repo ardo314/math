@@ -161,9 +161,9 @@ interface rotation-matrix2x2 {
 interface rotation-matrix3x3 {
     use types.{rotation-vector, quaternion, matrix3x3, axis-angle};
 
-    to-axis-angle: func(rv: rotation-vector) -> axis-angle;
-    to-rotation-vector: func(aa: axis-angle) -> rotation-vector;
-    to-quaternion: func(rv: rotation-vector) -> quaternion;
+    to-axis-angle: func(m: matrix3x3) -> axis-angle;
+    to-rotation-vector: func(m: matrix3x3) -> rotation-vector;
+    to-quaternion: func(m: matrix3x3) -> quaternion;
 }
 
 interface rotation-vector {

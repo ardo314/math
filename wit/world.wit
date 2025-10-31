@@ -148,20 +148,36 @@ interface matrix4x4 {
     mul-vector4d: func(lhs: matrix4x4, rhs: vector4d) -> vector4d;
 }
 
+interface rotation-matrix2x2 {
+    use types.{matrix2x2};
+
+    to-angle: func(m: matrix2x2) -> f32;
+    from-angle: func(a: f32) -> matrix2x2;
+}
+
+interface rotation-matrix3x3 {
+    use types.{rotation-vector, quaternion, matrix3x3, axis-angle};
+
+    to-axis-angle: func(rv: rotation-vector) -> axis-angle;
+    to-rotation-vector: func(aa: axis-angle) -> rotation-vector;
+    to-quaternion: func(rv: rotation-vector) -> quaternion;
+}
+
 interface rotation-vector {
-    use types.{rotation-vector, vector3d, quaternion};
+    use types.{rotation-vector, vector3d, quaternion, matrix3x3, axis-angle};
 
     identity: func() -> rotation-vector;
 
     mul-f32: func(rv: rotation-vector, s: f32) -> rotation-vector;
     div-f32: func(rv: rotation-vector, s: f32) -> rotation-vector;
 
-    to-axis-angle: func(rv: rotation-vector) -> tuple<vector3d, f32>;
+    to-axis-angle: func(rv: rotation-vector) -> axis-angle;
     to-quaternion: func(rv: rotation-vector) -> quaternion;
+    to-matrix3x3: func(rv: rotation-vector) -> matrix3x3;
 }
 
 interface axis-angle {
-    use types.{axis-angle, rotation-vector, quaternion};
+    use types.{axis-angle, rotation-vector, quaternion, matrix3x3};
 
     identity: func() -> axis-angle;
 
@@ -170,15 +186,17 @@ interface axis-angle {
 
     to-rotation-vector: func(aa: axis-angle) -> rotation-vector;
     to-quaternion: func(aa: axis-angle) -> quaternion;
+    to-matrix3x3: func(aa: axis-angle) -> matrix3x3;
 }
 
 interface quaternion {
-    use types.{quaternion, rotation-vector, vector3d};
+    use types.{quaternion, rotation-vector, vector3d, matrix3x3, axis-angle};
 
     identity: func() -> quaternion;
 
-    to-axis-angle: func(q: quaternion) -> tuple<vector3d, f32>;
+    to-axis-angle: func(q: quaternion) -> axis-angle;
     to-rotation-vector: func(q: quaternion) -> rotation-vector;
+    to-matrix3x3: func(q: quaternion) -> matrix3x3;
 }
 
 interface point2d {

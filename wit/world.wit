@@ -239,6 +239,9 @@ world math {
     export vector2d;
     export vector3d;
     export vector4d;
+    export matrix2x2;
+    export matrix3x3;
+    export matrix4x4;
     export rotation-vector;
     export axis-angle;
     export quaternion;
